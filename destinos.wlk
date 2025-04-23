@@ -1,22 +1,27 @@
 object puenteDeBrooklyn {
-    method dejarPasar(mensajero){
+    method dejarPasar(mensajero,paquete){
       return paquete.estaPago() && mensajero.peso() <= 1000
     }
 }
 
 object laMatrix {
-  method dejarPasar(mensajero){
+  method dejarPasar(mensajero,paquete){
     return paquete.estaPago() && mensajero.puedeLlamar()
   }
 }
 
-object paquete{
+object paqueteOriginal{
   var estaPago = false
 
   method precio() = 50
-  
-  method pagar(){
-    estaPago = true
+
+  method pagar(cantAPagar){
+    if(cantAPagar >= self.precio()){
+      estaPago = true
+    }else{
+      estaPago = false
+    }
+    
   }
   method deber(){
     estaPago = false
@@ -31,6 +36,10 @@ object paquetito{
 object paquetonViajero{
   var cantDeDestinos = 1
   var estaPago = false
+  var saldoPendiente = 100 * cantDeDestinos
+
+
+  method saldoPendiente() = saldoPendiente
 
   method estaPago() = estaPago
 
@@ -41,12 +50,9 @@ object paquetonViajero{
   }
 
   method pagar(cantAPagar){
-    var precioActual = self.precio()
-    if(cantAPagar >= precioActual){
+    saldoPendiente -= cantAPagar
+    if(saldoPendiente <= 0){
       estaPago = true
-    }else{
-      precioActual = precioActual - cantAPagar
-      estaPago = false
     }
   }
 }

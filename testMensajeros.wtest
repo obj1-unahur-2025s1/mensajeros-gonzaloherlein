@@ -31,13 +31,19 @@ describe "Test de la empresa"{
     test "el primer empleado puede entregar el paquete" {
         empresa.contratarMensajero(chuckNorris)
         empresa.contratarMensajero(neo)
-        paquete.pagar()
-        assert.that(empresa.paquetePuedeSerEntregadoPorElPrimerMensajero())
+        paqueteOriginal.pagar(50)
+        assert.that(empresa.paquetePuedeSerEntregadoPorElPrimerMensajero(paqueteOriginal))
     }
 
     test "saber el peso del ultimo mensajero"{
         empresa.contratarMensajero(neo)
         empresa.contratarMensajero(chuckNorris)
         assert.equals(80, empresa.pesoDelUltimoMensajero())
+    }
+}
+
+describe "Test mensajeria recargada"{
+    test "obtener todos los mensajeros que pueden llevar un paquete dado" {
+      
     }
 }

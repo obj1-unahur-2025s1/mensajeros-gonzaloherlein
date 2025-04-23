@@ -22,14 +22,30 @@ object empresa{
         return mensajeros.size() > 2
     }
 
-    method paquetePuedeSerEntregadoPorElPrimerMensajero(){
+    method paquetePuedeSerEntregadoPorElPrimerMensajero(paquete){
         const primero = mensajeros.asList().first()
-        return puenteDeBrooklyn.dejarPasar(primero) ||
-                laMatrix.dejarPasar(primero)
+        return puenteDeBrooklyn.dejarPasar(primero,paquete) ||
+                laMatrix.dejarPasar(primero,paquete)
     }
 
     method pesoDelUltimoMensajero(){
         const ultimo = mensajeros.asList().last()
         return ultimo.peso()
+    }
+
+    method obtenerMensajerosQuePuedanLlevarUnPaquete(paquete){
+        const lista = []
+        const listaDeMensajeros = mensajeros.asList()
+        listaDeMensajeros.forEach({
+            mensajero => if(self.puedeLlevarPaquete(mensajero, paquete)){
+                lista.add(mensajero)
+            }
+        })
+        return lista
+    }
+
+    method puedeLlevarPaquete(mensajero,paquete){
+        return puenteDeBrooklyn.dejarPasar(mensajero,paquete) ||
+                laMatrix.dejarPasar(mensajero,paquete)
     }
 }
