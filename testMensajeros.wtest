@@ -1,1 +1,43 @@
+import destinos.*
+import empresa.*
+import mensajeros.*
 
+describe "Test de la empresa"{
+    test "la empresa contrata un mensajero" {
+        empresa.contratarMensajero(neo)
+        assert.equals(1,empresa.getMensajeros().size())
+    }
+    test "la empresa despide a un mensajero" {
+        empresa.contratarMensajero(neo)
+        empresa.despedirMensajero(neo)
+        assert.equals(0,empresa.getMensajeros().size())
+    }
+
+    test "la empresa despide a todos" {
+        empresa.contratarMensajero(neo)
+        empresa.contratarMensajero(chuckNorris)
+        empresa.contratarMensajero(roberto)
+        empresa.despedirATodos()
+        assert.equals(0,empresa.getMensajeros().size())
+    }
+
+    test "la empresa es grande (mas de 2 empleados)"{
+        empresa.contratarMensajero(neo)
+        empresa.contratarMensajero(chuckNorris)
+        empresa.contratarMensajero(roberto)
+        assert.that(empresa.esGrande())
+    }
+
+    test "el primer empleado puede entregar el paquete" {
+        empresa.contratarMensajero(chuckNorris)
+        empresa.contratarMensajero(neo)
+        paquete.pagar()
+        assert.that(empresa.paquetePuedeSerEntregadoPorElPrimerMensajero())
+    }
+
+    test "saber el peso del ultimo mensajero"{
+        empresa.contratarMensajero(neo)
+        empresa.contratarMensajero(chuckNorris)
+        assert.equals(80, empresa.pesoDelUltimoMensajero())
+    }
+}

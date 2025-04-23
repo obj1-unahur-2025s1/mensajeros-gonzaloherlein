@@ -4,6 +4,10 @@ import destinos.*
 object empresa{
     const mensajeros = #{}
 
+    method getMensajeros(){
+        return mensajeros
+    }
+
     method contratarMensajero(unMensajero){
         mensajeros.add(unMensajero)
     }
@@ -18,9 +22,14 @@ object empresa{
         return mensajeros.size() > 2
     }
 
-    method algunoPuedePasarABrooklyn(){
-        mensajeros.any({
-            mensajero => puenteDeBrooklyn.dejarPasar(mensajero)
-        })
+    method paquetePuedeSerEntregadoPorElPrimerMensajero(){
+        const primero = mensajeros.asList().first()
+        return puenteDeBrooklyn.dejarPasar(primero) ||
+                laMatrix.dejarPasar(primero)
+    }
+
+    method pesoDelUltimoMensajero(){
+        const ultimo = mensajeros.asList().last()
+        return ultimo.peso()
     }
 }
