@@ -12,6 +12,9 @@ object laMatrix {
 
 object paquete{
   var estaPago = false
+
+  method precio() = 50
+  
   method pagar(){
     estaPago = true
   }
@@ -19,4 +22,31 @@ object paquete{
     estaPago = false
   }
   method estaPago() = estaPago
+}
+
+object paquetito{
+  method estaPago() = true
+}
+
+object paquetonViajero{
+  var cantDeDestinos = 1
+  var estaPago = false
+
+  method estaPago() = estaPago
+
+  method precio() = 100 * cantDeDestinos
+
+  method cambiarCantDeDestinos(nuevaCantDeDestinos){
+    cantDeDestinos = nuevaCantDeDestinos
+  }
+
+  method pagar(cantAPagar){
+    var precioActual = self.precio()
+    if(cantAPagar >= precioActual){
+      estaPago = true
+    }else{
+      precioActual = precioActual - cantAPagar
+      estaPago = false
+    }
+  }
 }
