@@ -1,6 +1,6 @@
 //Mensajeros
 object roberto{
-  var vehiculo = null
+  var vehiculo = bicicleta
 
   method puedeLlamar() = false
 

@@ -22,10 +22,9 @@ object empresa{
         return mensajeros.size() > 2
     }
 
-    method paquetePuedeSerEntregadoPorElPrimerMensajero(paquete){
+    method paquetePuedeSerEntregadoPorElPrimerMensajero(paquete,destino){
         const primero = mensajeros.asList().first()
-        return puenteDeBrooklyn.dejarPasar(primero,paquete) ||
-                laMatrix.dejarPasar(primero,paquete)
+        return paquete.sePuedeEntregar(primero, destino)
     }
 
     method pesoDelUltimoMensajero(){
@@ -33,19 +32,13 @@ object empresa{
         return ultimo.peso()
     }
 
-    method obtenerMensajerosQuePuedanLlevarUnPaquete(paquete){
-        const lista = []
-        const listaDeMensajeros = mensajeros.asList()
-        listaDeMensajeros.forEach({
-            mensajero => if(self.puedeLlevarPaquete(mensajero, paquete)){
-                lista.add(mensajero)
-            }
+    method puedeEntregar(destino,tipoDePaquete) =
+        mensajeros.any({
+            m => tipoDePaquete.sePuedeEntregar(m,destino)
         })
-        return lista
-    }
-
-    method puedeLlevarPaquete(mensajero,paquete){
-        return puenteDeBrooklyn.dejarPasar(mensajero,paquete) ||
-                laMatrix.dejarPasar(mensajero,paquete)
-    }
+    
+    method obtenerTodosLosMensajerosQuePuedenLlevarUnPaquete(paquete,destino) =
+        mensajeros.filter({
+            m => paquete.sePuedeEntregar(m,destino)
+        })
 }

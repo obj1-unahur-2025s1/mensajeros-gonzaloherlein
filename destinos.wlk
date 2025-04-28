@@ -1,12 +1,12 @@
 object puenteDeBrooklyn {
-    method dejarPasar(mensajero,paquete){
-      return paquete.estaPago() && mensajero.peso() <= 1000
+    method dejarPasar(mensajero){
+      return mensajero.peso() <= 1000
     }
 }
 
 object laMatrix {
-  method dejarPasar(mensajero,paquete){
-    return paquete.estaPago() && mensajero.puedeLlamar()
+  method dejarPasar(mensajero){
+    return mensajero.puedeLlamar()
   }
 }
 
@@ -27,26 +27,34 @@ object paqueteOriginal{
     estaPago = false
   }
   method estaPago() = estaPago
+
+  method sePuedeEntregar(mensajero,lugar){
+    return self.estaPago() && lugar.dejarPasar(mensajero)
+  }
 }
 
 object paquetito{
+  method precio() = 0
   method estaPago() = true
+  method sePuedeEntregar(mensajero,lugar){
+    return self.estaPago() && lugar.dejarPasar(mensajero)
+  }
 }
 
 object paquetonViajero{
-  var cantDeDestinos = 1
+  const destinos = #{}
   var estaPago = false
-  var saldoPendiente = 100 * cantDeDestinos
+  var saldoPendiente = 100 * destinos.size()
 
 
   method saldoPendiente() = saldoPendiente
 
   method estaPago() = estaPago
 
-  method precio() = 100 * cantDeDestinos
+  method precio() = 100 * destinos.size()
 
-  method cambiarCantDeDestinos(nuevaCantDeDestinos){
-    cantDeDestinos = nuevaCantDeDestinos
+  method agregarDestinos(nuevoDestino){
+    destinos.add(nuevoDestino)
   }
 
   method pagar(cantAPagar){
@@ -54,5 +62,10 @@ object paquetonViajero{
     if(saldoPendiente <= 0){
       estaPago = true
     }
+  }
+  method sePuedeEntregar(mensajero,lugar){
+      self.estaPago() && destinos.all({
+        destino => destino.dejarPasar(mensajero)
+      })
   }
 }

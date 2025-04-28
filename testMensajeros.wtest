@@ -32,7 +32,7 @@ describe "Test de la empresa"{
         empresa.contratarMensajero(chuckNorris)
         empresa.contratarMensajero(neo)
         paqueteOriginal.pagar(50)
-        assert.that(empresa.paquetePuedeSerEntregadoPorElPrimerMensajero(paqueteOriginal))
+        assert.that(empresa.paquetePuedeSerEntregadoPorElPrimerMensajero(paqueteOriginal,puenteDeBrooklyn))
     }
 
     test "saber el peso del ultimo mensajero"{
@@ -44,6 +44,10 @@ describe "Test de la empresa"{
 
 describe "Test mensajeria recargada"{
     test "obtener todos los mensajeros que pueden llevar un paquete dado" {
-      
+        const resultadoEsperado = #{neo}
+        empresa.contratarMensajero(neo)
+        empresa.contratarMensajero(roberto)
+        paqueteOriginal.pagar(50)
+        assert.equals(resultadoEsperado,empresa.obtenerTodosLosMensajerosQuePuedenLlevarUnPaquete(paqueteOriginal,laMatrix))
     }
 }
