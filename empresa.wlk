@@ -32,9 +32,9 @@ object empresa{
         return ultimo.peso()
     }
 
-    method puedeEntregar(destino,tipoDePaquete) =
+    method puedeEntregar(destino,paquete) =
         mensajeros.any({
-            m => tipoDePaquete.sePuedeEntregar(m,destino)
+            m => paquete.sePuedeEntregar(m,destino)
         })
     
     method obtenerTodosLosMensajerosQuePuedenLlevarUnPaquete(paquete,destino) =
