@@ -64,12 +64,12 @@ object empresa{
     }
 
     method encontrarElPaquetePendienteMasCaroYEnviarlo(destino){
-        const paqueteMasCaro = paquetesPendientes.max({
+        const paquetePendienteMasCaro = paquetesPendientes.max({
             p => p.precio()
         })
-        if(self.puedeEntregar(destino, paqueteMasCaro)){
-            self.enviarPaquete(paqueteMasCaro, destino)
-            paquetesPendientes.remove(paqueteMasCaro)
+        if(self.puedeEntregar(destino, paquetePendienteMasCaro)){
+            self.enviarPaquete(paquetePendienteMasCaro, destino)
+            paquetesPendientes.remove(paquetePendienteMasCaro)
         }
     }
 }
