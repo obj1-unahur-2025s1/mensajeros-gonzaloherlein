@@ -50,4 +50,10 @@ describe "Test mensajeria recargada"{
         paqueteOriginal.pagar(50)
         assert.equals(resultadoEsperado,empresa.obtenerTodosLosMensajerosQuePuedenLlevarUnPaquete(paqueteOriginal,laMatrix))
     }
+
+    test "Mensajeria tiene sobre peso"{
+        empresa.contratarMensajero(neo)
+        empresa.contratarMensajero(roberto)
+        assert.notThat(empresa.saberSiMensajeriaTieneSobrepeso())    
+    }
 }
